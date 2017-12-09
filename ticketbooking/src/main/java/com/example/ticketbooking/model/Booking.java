@@ -1,5 +1,7 @@
 package com.example.ticketbooking.model;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -11,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
 
 @Entity
 @Table(name="booking")
@@ -20,17 +25,36 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@NotBlank
+    private Date departureDate;
+	@NotBlank
 	private String departureTime;
+	@NotBlank
+	private String arrivalTime;
 	@NotBlank
 	private String fromStation;
 	@NotBlank
 	private String toStation;
 	@NotBlank
-	private Long price;
+	private String returnDepartureTime;
+	@NotBlank
+	private String returnArrivalTime;
+	@NotBlank
+	private int price;
+	@NotBlank
+	private int noOfConnections;
+	@NotBlank
+	private int noOfTickets;
+	
+	private boolean roundTrip;
+	
+
+/*
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="trainNumber")
 	private Train train;
+	
+	*/
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="email")
@@ -67,13 +91,58 @@ public class Booking {
 	public void setToStation(String toStation) {
 		this.toStation = toStation;
 	}
-	public Long getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	
+	
+	public Date getDepartureDate() {
+		return departureDate;
+	}
+	public void setDepartureDate(Date departureDate) {
+		this.departureDate = departureDate;
+	}
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+	public String getReturnDepartureTime() {
+		return returnDepartureTime;
+	}
+	public void setReturnDepartureTime(String returnDepartureTime) {
+		this.returnDepartureTime = returnDepartureTime;
+	}
+	public String getReturnArrivalTime() {
+		return returnArrivalTime;
+	}
+	public void setReturnArrivalTime(String returnArrivalTime) {
+		this.returnArrivalTime = returnArrivalTime;
+	}
+	public int getNoOfConnections() {
+		return noOfConnections;
+	}
+	public void setNoOfConnections(int noOfConnections) {
+		this.noOfConnections = noOfConnections;
+	}
+	public int getNoOfTickets() {
+		return noOfTickets;
+	}
+	public void setNoOfTickets(int noOfTickets) {
+		this.noOfTickets = noOfTickets;
+	}
+	public boolean isRoundTrip() {
+		return roundTrip;
+	}
+	public void setRoundTrip(boolean roundTrip) {
+		this.roundTrip = roundTrip;
+	}
+	public void setPrice(int price) {
 		this.price = price;
 	}
-	public Booking(Long id, User user, String departureTime, String fromStation, String toStation, Long price) {
+	
+	public Booking(Long id, User user, String departureTime, String fromStation, String toStation, int price) {
 		super();
 		this.id = id;
 		this.user = user;
