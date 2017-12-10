@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 
@@ -24,7 +25,9 @@ public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@NotBlank
+	
+	
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date departureDate;
 	@NotBlank
 	private String departureTime;
@@ -34,15 +37,16 @@ public class Booking {
 	private String fromStation;
 	@NotBlank
 	private String toStation;
-	@NotBlank
+	
 	private String returnDepartureTime;
-	@NotBlank
+
 	private String returnArrivalTime;
-	@NotBlank
+
+	
 	private int price;
-	@NotBlank
+	
 	private int noOfConnections;
-	@NotBlank
+	
 	private int noOfTickets;
 	
 	private boolean roundTrip;
@@ -150,6 +154,20 @@ public class Booking {
 		this.fromStation = fromStation;
 		this.toStation = toStation;
 		this.price = price;
+	}
+	public Booking(User user,Date departureDate, String departureTime, String arrivalTime, String fromStation,
+			String toStation, int noOfConnections, int noOfTickets) {
+		super();
+		this.user = user;
+		this.departureDate = departureDate;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.fromStation = fromStation;
+		this.toStation = toStation;
+		this.noOfConnections = noOfConnections;
+		this.noOfTickets = noOfTickets;
+		
+		// TODO Auto-generated constructor stub
 	}
 	
 	
