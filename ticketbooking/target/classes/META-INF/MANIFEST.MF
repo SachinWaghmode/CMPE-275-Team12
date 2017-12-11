@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: TicketBookingAndManagement
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: sachinwaghmode
+Built-By: suchi
 Implementation-Vendor-Id: com.example
-Build-Jdk: 1.8.0_121
+Build-Jdk: 1.8.0_40-ea
 Implementation-URL: http://projects.spring.io/spring-boot/ticketbookin
  g/
 Created-By: Maven Integration for Eclipse
