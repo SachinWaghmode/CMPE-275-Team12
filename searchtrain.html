@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search for Trains</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="/js/app.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">  
+<!-- <script>
+function alphabet()
+{
+for (var i = 65; i <= 90; i++) {
+                    $('#select_id_or_class').append('<option>' + String.fromCharCode(i) + '</option>');
+}}</script> 
+ for(var i=65;i<=90;i++) {
+    console.log(String.fromCharCode(i));
+ } -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+<!--   <script> 
+//   $( function() {
+//     $( "#datepicker" ).datepicker({ minDate: -20, maxDate: "+1M +10D" });
+//   } );
+   </script> -->
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="container" ng-app="app">
+<h3>Search For Trains</h3>
+	
+	<div ng-controller="searchtraincontroller">
+	
+	<form class="form-horizontal" name="searchTrainForm" ng-submit="submitForm()">
+	
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="numPassenger">Number of Passengers:</label>
+				<div class="col-sm-5">
+				<select name="numPassenger" ng-model="numPassenger">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="fromStation">From Station:</label>
+				<div class="col-sm-5">
+					<select name="fromStation" ng-model="fromStation">
+					<option value="1">A</option>
+					<option value="2">B</option>
+					<option value="3">C</option>
+					<option value="4">D</option>
+					<option value="5">E</option>
+					<option value="6">F</option>
+					<option value="7">G</option>
+					<option value="8">H</option>
+					<option value="9">I</option>
+					<option value="10">J</option>
+					<option value="11">K</option>
+					<option value="12">L</option>
+					<option value="13">M</option>
+					<option value="14">N</option>
+					<option value="15">O</option>
+					<option value="16">P</option>
+					<option value="17">Q</option>
+					<option value="18">R</option>
+					<option value="19">S</option>
+					<option value="20">T</option>
+					<option value="21">U</option>
+					<option value="22">V</option>
+					<option value="23">W</option>
+					<option value="24">X</option>
+					<option value="25">Y</option>
+					<option value="26">Z</option>					
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="toStation">To Station:</label>
+				<div class="col-sm-5">
+					<select name="toStation" ng-model="toStation">
+					<option value="1">A</option>
+					<option value="2">B</option>
+					<option value="3">C</option>
+					<option value="4">D</option>
+					<option value="5">E</option>
+					<option value="6">F</option>
+					<option value="7">G</option>
+					<option value="8">H</option>
+					<option value="9">I</option>
+					<option value="10">J</option>
+					<option value="11">K</option>
+					<option value="12">L</option>
+					<option value="13">M</option>
+					<option value="14">N</option>
+					<option value="15">O</option>
+					<option value="16">P</option>
+					<option value="17">Q</option>
+					<option value="18">R</option>
+					<option value="19">S</option>
+					<option value="20">T</option>
+					<option value="21">U</option>
+					<option value="22">V</option>
+					<option value="23">W</option>
+					<option value="24">X</option>
+					<option value="25">Y</option>
+					<option value="26">Z</option>					
+				</select>
+				</div>
+			</div>
+			<div class="form-group">
+			<label class="control-label col-sm-2" for="datePicker">Date</label>
+				<div class="col-sm-5">
+			  {{datePicker || "00/00/0000"}}
+			  <input type="text" ng-model="datePicker" datepicker />
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	
+	
+</div>
+
+</body>
+</html>
