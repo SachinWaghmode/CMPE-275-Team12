@@ -1,5 +1,6 @@
 package com.example.ticketbooking.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.ticketbooking.dao.BookingRepository;
+import com.example.ticketbooking.dao.TrainRepository;
 import com.example.ticketbooking.dao.UserRepository;
 import com.example.ticketbooking.model.Booking;
 import com.example.ticketbooking.model.User;
@@ -18,6 +20,8 @@ public class BookingService {
 	private BookingRepository bookingRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private TrainRepository trainRepository;
 	
 	public ResponseEntity<?> purchaseTicket(String email,Date departureDate,String departureTime, String arrivalTime, String fromStation, String toStation,int noOfConnections,int noOfTickets){
 		
@@ -33,6 +37,12 @@ public class BookingService {
 		}
 		bookingRepository.save(booking);
 		
+		/*
+		List<Train> trains = new ArrayList<>();
+		
+		trainRepository.findAll().forEach(trains::add);
+		
+		*/
 		return new ResponseEntity<>(booking, 
 				HttpStatus.CREATED);
 		
