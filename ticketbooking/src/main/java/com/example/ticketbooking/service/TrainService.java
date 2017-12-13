@@ -1,7 +1,12 @@
 package com.example.ticketbooking.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +25,12 @@ public class TrainService {
 	
 	
 	
-public ResponseEntity<?> searchForTrain(Long id){
+public ResponseEntity<?> searchForTrain(String email,Date departureDate,String departureTime, String arrivalTime, String fromStation, String toStation,int noOfConnections,int noOfTickets){
 		
 		System.out.println("inside getPlayer()");
 		//Train train = trainRepository.findOne(id);
 		List<Train> trains = new ArrayList<>();
+		List<Train> availableTrains = new ArrayList<>();
 	    trainRepository.findAll().forEach(trains::add);
 	    
 	    for(int i=0; i<trains.size(); i++){
@@ -36,20 +42,27 @@ public ResponseEntity<?> searchForTrain(Long id){
 	    	System.out.println("Train Number"+trains.get(i).getTrainType());
 	    	System.out.println("Train Number"+trains.get(i).getTrainNumber());
 	    	System.out.println("Train Number"+trains.get(i).getDepartureDate());
+	    	
+	    	
+	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	    	LocalDate localDate = LocalDate.now();
+	    	LocalDate nextweek = localDate.plusWeeks(1);
+	    	
+	    	int atime = Integer.parseInt(arrivalTime);
+	    	atime = atime+100;
+	    	
+	    	int getTime = Integer.parseInt(trains.get(i).getArrivalTime());
+	    	
+	    
+	    	if (trains.get(i).getCapacity() >= noOfTickets && (atime <= getTime) || ( localDate.equals(trains.get(i).getDepartureDate())  ) ){
+	    		if((trains.get(i).getFromStation().compareTo(fromStation) <= 0) && (trains.get(i).getToStation().compareTo(toStation) >= 0)){
+	    			
+	    			availableTrains.add(trains.get(i));
+	    		}
+	    	}
 	    }
-		/*if (trains==null){
-			return new ResponseEntity<>("404-Train not Found",HttpStatus.NOT_FOUND);
-		}
-		if(trains!=null){
-			System.out.println("inside getTrain() if");
-			try{
-			
-			}
-			catch(Exception e){
-				return new 	ResponseEntity<>("400-Parameter Exception",HttpStatus.NOT_FOUND);
-			}
-		}*/
-		return new ResponseEntity<>(trains,HttpStatus.OK);
+        //Collections.sort(availableTrains);
+		return new ResponseEntity<>(availableTrains,HttpStatus.OK);
 		
 		
 		
