@@ -27,7 +27,21 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 		
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public ResponseEntity addUser(@RequestParam(value="email",required=true) String email,
+			@RequestParam(value="password",required=true) String password){
+		if( userService.InsertUsertable(email, password))
+		 			return ResponseEntity.ok(null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	}
 	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public ResponseEntity getUser(@RequestParam(value="email",required=true) String email,
+			@RequestParam(value="password",required=true) String password){
+		if( userService.SelectUsertable(email, password))
+		 			return ResponseEntity.ok(null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	}
 	
 
 }

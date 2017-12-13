@@ -12,6 +12,29 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-
+public boolean InsertUsertable(String email, String password){
+		
+		if (email !=null && password != null){
+			
+			User user = new User(email, password);
+			userRepository.save(user);
+			return true;
+		}
+		return false;
+		
+	}
+	
+public boolean SelectUsertable(String email, String password){
+		
+		if (email !=null && password != null){
+			
+			User user = userRepository.findOne(email);
+			
+			if (user.getPassword() == password)
+				return true;
+		}
+		return false;
+		
+	}
 	
 }
