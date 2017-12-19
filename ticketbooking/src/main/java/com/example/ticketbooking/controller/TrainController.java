@@ -1,5 +1,6 @@
 package com.example.ticketbooking.controller;
 
+import java.security.Principal;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -27,23 +28,25 @@ public class TrainController {
 	private TrainService trainService;
 	
 	@RequestMapping(value = "/train/search", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	    public ResponseEntity<?> searchTrain(
+	    public ResponseEntity<?> searchTrain(Principal principal,
 	    		//@PathVariable Long id
-	    		@RequestParam(value="email",required=true) String email,
+	    		//@RequestParam(value="email",required=true) String email,
 	    		@RequestParam(value="departuredate",required=true) Date departureDate,
 	    		@RequestParam(value="departuretime",required=true) String departureTime,
-	    		@RequestParam(value="arrivaltime",required=true) String arrivalTime,
+	    		//@RequestParam(value="arrivaltime",required=true) String arrivalTime,
 	    		@RequestParam(value="fromstation",required=true) String fromStation,
 	    		@RequestParam(value="tostation",required=true) String toStation,
 	    		@RequestParam(value="noofconnections") int noOfConnections,
-	    		@RequestParam(value="nooftickets") int noOfTickets
-	    		
+	    		@RequestParam(value="nooftickets") int noOfTickets,
+	    		@RequestParam(value="tickettype") String ticketType,
+	    		@RequestParam(value="traintype") String trainType
 	    		
 	    		) {
 		 System.out.println("Inside GET Request");
-	    	
+	    	//String email = principal.getName();
+		 String email = "sachinwaghmode57@gmail.com";
 	      //  return trainService.searchForTrain(id);
-		 return trainService.searchForTrain(email,departureDate, departureTime, arrivalTime, fromStation, toStation, noOfConnections, noOfTickets);
+		 return trainService.searchForTrain(email,departureDate, departureTime, fromStation, toStation, noOfConnections, noOfTickets, ticketType, trainType);
 	    }
 
 }

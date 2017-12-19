@@ -1,4 +1,4 @@
-/*var CUSRapp = angular.module('CUSRapp', ['ui.router', 'ngStorage']);
+-/*var CUSRapp = angular.module('CUSRapp', ['ui.router', 'ngStorage']);
 CUSRapp.config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('/');
