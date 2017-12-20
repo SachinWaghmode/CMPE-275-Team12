@@ -1,6 +1,7 @@
 package com.example.ticketbooking.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -51,14 +53,11 @@ public class Booking {
 	
 	private boolean roundTrip;
 	
+	@ManyToMany(mappedBy="bookings")
+	private List<Train> trains;
+	
 
-/*
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="trainNumber")
-	private Train train;
-	
-	*/
+
 	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="email")
@@ -168,6 +167,31 @@ public class Booking {
 		this.noOfTickets = noOfTickets;
 		
 		// TODO Auto-generated constructor stub
+	}
+	public List<Train> getTrains() {
+		return trains;
+	}
+	public void setTrains(List<Train> trains) {
+		this.trains = trains;
+	}
+	public Booking(Long id, Date departureDate, String departureTime, String arrivalTime, String fromStation,
+			String toStation, String returnDepartureTime, String returnArrivalTime, int price, int noOfConnections,
+			int noOfTickets, boolean roundTrip, List<Train> trains, User user) {
+		super();
+		this.id = id;
+		this.departureDate = departureDate;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.fromStation = fromStation;
+		this.toStation = toStation;
+		this.returnDepartureTime = returnDepartureTime;
+		this.returnArrivalTime = returnArrivalTime;
+		this.price = price;
+		this.noOfConnections = noOfConnections;
+		this.noOfTickets = noOfTickets;
+		this.roundTrip = roundTrip;
+		this.trains = trains;
+		this.user = user;
 	}
 	
 	

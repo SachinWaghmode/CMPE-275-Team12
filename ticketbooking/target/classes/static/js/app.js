@@ -132,24 +132,22 @@ CUSRapp.controller('logincontroller',['$scope','$http','$state','$window',functi
 */
 
 var CUSRapp = angular.module('CUSRapp', ['ui.router']);
-CUSRapp.config(function($stateProvider, $urlRouterProvider){
-	
-	 $urlRouterProvider.otherwise('/');
+CUSRapp.config(function($stateProvider){
 	
 	$stateProvider.state('app',{
 	    	url: '/',
 	    	views: {
-	    		'header':{
+	    		'header@':{
 	    			templateUrl: 'resources/templates/header.html'
 	    		},
-	    		'content':{
+	    		'content@':{
 	    			templateUrl: 'resources/templates/index.html',
 	    			controller: 'registercontroller'
 	    		}
 	    	}
 	    })
-	  
-	    .state('app.login',{
+	  /*  
+	    $stateProvider.state('app.login',{
 	    	url: 'login',
 	    	views: {
 	    		'header@':{
@@ -161,10 +159,8 @@ CUSRapp.config(function($stateProvider, $urlRouterProvider){
 	    		}
 	    	}
 	    })
-	   
+	    */
 });
-
-
 CUSRapp.controller('registercontroller', function($scope, $http, $state, $location) {
 	$scope.Register=function(){
 	       
@@ -189,7 +185,7 @@ CUSRapp.controller('registercontroller', function($scope, $http, $state, $locati
 		           console.log(data);
 		           console.log("inside success");
 		           console.log($scope.email);
-		           $state.transitionTo("app.login");
+		       //   $state.transitionTo("app.login");
 		          console.log("After State Transition");
 		    	   if(data.status==200){
 		               console.log(data.token);
@@ -202,9 +198,8 @@ CUSRapp.controller('registercontroller', function($scope, $http, $state, $locati
 		       })
 	       }
 })
-
  
-CUSRapp.controller('logincontroller',['$scope','$http','$state','$window','$interval', function($scope, $http,$state, $location,$window,$interval) {
+CUSRapp.controller('logincontroller', function($scope, $http,$state, $location) {
 	$scope.Login = function(){
 		 console.log("inside login function");
 		  
@@ -229,7 +224,7 @@ CUSRapp.controller('logincontroller',['$scope','$http','$state','$window','$inte
 	           console.log($scope.email);
 	    	   if(data.status==200){
 	               console.log(data.token);
-	               $state.transitionTo("app.UserHome");
+	    		 //  $state.transitionTo("app.UserHome");
 	            }
 	           else{
 	               
@@ -237,4 +232,4 @@ CUSRapp.controller('logincontroller',['$scope','$http','$state','$window','$inte
 	           }
 	       })
     }
-}])
+})
