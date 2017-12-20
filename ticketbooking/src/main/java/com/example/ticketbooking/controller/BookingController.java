@@ -1,5 +1,6 @@
 package com.example.ticketbooking.controller;
 
+import java.security.Principal;
 import java.util.Date;
 
 import javax.transaction.Transactional;
@@ -23,8 +24,8 @@ public class BookingController {
 	private BookingService bookingService;
 	
 	@RequestMapping(value = "/train/purchase", method = RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> addBooking(
-    	@RequestParam(value="email",required=true) String email,
+    public ResponseEntity<?> addBooking(Principal principal,
+    	//@RequestParam(value="email",required=true) String email,
 		@RequestParam(value="departuredate",required=true) Date departureDate,
 		@RequestParam(value="departuretime",required=true) String departureTime,
 		@RequestParam(value="arrivaltime",required=true) String arrivalTime,
@@ -33,7 +34,8 @@ public class BookingController {
 		@RequestParam(value="noofconnections") int noOfConnections,
 		@RequestParam(value="nooftickets") int noOfTickets
     		){
-		return bookingService.purchaseTicket(email,departureDate,departureTime,arrivalTime,fromStation,toStation,noOfConnections,noOfTickets);
+		String email = principal.getName();
+		return bookingService.purchaseTicket(email, departureDate,departureTime,arrivalTime,fromStation,toStation,noOfConnections,noOfTickets);
     }
 	
 }
