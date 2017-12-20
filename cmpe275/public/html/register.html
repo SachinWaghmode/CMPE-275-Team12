@@ -1,0 +1,41 @@
+<html ng-app="routerApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+    <style>
+        body{
+
+
+            background-image: url("https://static.vecteezy.com/system/resources/previews/000/135/681/original/free-tgv-vector-illustration.jpg");
+            background-repeat: no-repeat;
+            background-size: 1400px 700px ;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class = "row">
+        <div class = "col-md-4"></div>
+        <div class = "col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email </label>
+                    <input type="string" class="form-control" id="exampleInputEmail1" placeholder="Email" ng-model="email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="password">
+                </div>
+                <div class="form-group">
+                    <label><input type="radio" name="driverOrPassenger" ng-model="driverOrPassenger" ng-value="'driver'">driver</label>
+                    <label><input type="radio" name="driverOrPassenger" ng-model="driverOrPassenger" ng-value="'passenger'">passenger</label>
+                    <label><input type="radio" name="driverOrPassenger" ng-model="driverOrPassenger" ng-value="'admin'">admin</label>
+                </div>
+                <button type="submit" class="btn btn-default" ng-click = "login()">Login</button>
+                <button type="button" class="btn btn-default" ng-click = "register()">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
