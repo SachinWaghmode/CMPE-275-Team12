@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.example.ticketbooking.TicketBookingAndManagementApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 13.854 sec <<< FAILURE! - in com.example.ticketbooking.TicketBookingAndManagementApplicationTests
-contextLoads(com.example.ticketbooking.TicketBookingAndManagementApplicationTests)  Time elapsed: 0.017 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 13.534 sec <<< FAILURE! - in com.example.ticketbooking.TicketBookingAndManagementApplicationTests
+contextLoads(com.example.ticketbooking.TicketBookingAndManagementApplicationTests)  Time elapsed: 0.018 sec  <<< ERROR!
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:124)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:83)

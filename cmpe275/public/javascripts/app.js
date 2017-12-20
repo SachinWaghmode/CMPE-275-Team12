@@ -171,4 +171,52 @@ routerApp.controller('homeController',['$scope','$http','$state','$window',funct
     }
 }])
 
+
+
+routerApp.controller('searchController',['$scope','$http','$state','$window',function($scope,$http,$state,$window){
+    $scope.search=function(){
+
+        console.log("inside register function");
+
+        $http({
+            method:'post',
+            url:'http://localhost:8080/train/search',
+            headers: {"Content-Type":"application/x-www-form-urlencoded"},
+            transformRequest: function(obj) {
+                var str = [];
+                for(var p in obj)
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                return str.join("&");
+            },
+            data:{
+
+                email:$scope.email,
+
+                password:$scope.password,
+
+
+
+            }
+
+        }).then(function(data){
+            console.log(data);
+            console.log("inside success");
+            console.log($scope.email);
+            if(data.status==200){
+                console.log(data.token);
+                $state.transitionTo("app.login");
+            }
+            else{
+
+
+            }
+        })
+
+
+    }
+    $scope.switchToLogin=function(){
+        $state.transitionTo("app.login");
+    }
+}])
+
 //Controllers end here---------------------------------------------------------------------------------------------------
