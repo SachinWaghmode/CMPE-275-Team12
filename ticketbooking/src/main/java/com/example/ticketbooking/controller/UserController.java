@@ -43,5 +43,13 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
 	
+	@RequestMapping(value="/articles", method=RequestMethod.POST)
+	public ResponseEntity getUser1(@RequestParam(value="title",required=true) String email){
+		//if( userService.SelectUsertable(email, password))
+		System.out.println("request recveived from article url");
+		 			return ResponseEntity.ok(null);
+			//return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	}
+	
 
 }
