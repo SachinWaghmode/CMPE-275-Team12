@@ -29,8 +29,7 @@ public class TrainController {
 	
 	@RequestMapping(value = "/train/search", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	    public ResponseEntity<?> searchTrain(Principal principal,
-	    		//@PathVariable Long id
-	    		//@RequestParam(value="email",required=true) String email,
+	    		
 	    		@RequestParam(value="departuredate",required=true) Date departureDate,
 	    		@RequestParam(value="departuretime",required=true) String departureTime,
 	    		//@RequestParam(value="arrivaltime",required=true) String arrivalTime,
@@ -39,14 +38,15 @@ public class TrainController {
 	    		@RequestParam(value="noofconnections") int noOfConnections,
 	    		@RequestParam(value="nooftickets") int noOfTickets,
 	    		@RequestParam(value="tickettype") String ticketType,
-	    		@RequestParam(value="traintype") String trainType
-	    		
+	    		@RequestParam(value="traintype") String trainType,
+	    		@RequestParam(value="returntripdate",required=true) Date returnTripDate,
+	    		@RequestParam(value="returntriptime",required=true) String returnTripTime
 	    		) {
 		 System.out.println("Inside GET Request");
 	    	//String email = principal.getName();
 		 String email = "sachinwaghmode57@gmail.com";
 	     
-		 return trainService.searchForTrain(email,departureDate, departureTime, fromStation, toStation, noOfConnections, noOfTickets, ticketType, trainType);
+		 return trainService.searchForTrain(email,departureDate, departureTime, fromStation, toStation, noOfConnections, noOfTickets, ticketType, trainType, returnTripDate, returnTripTime);
 	    }
 
 }
