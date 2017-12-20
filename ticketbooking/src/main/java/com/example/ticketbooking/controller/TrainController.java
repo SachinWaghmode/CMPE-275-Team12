@@ -45,7 +45,7 @@ public class TrainController {
 		 System.out.println("Inside GET Request");
 	    	//String email = principal.getName();
 		 String email = "sachinwaghmode57@gmail.com";
-	      //  return trainService.searchForTrain(id);
+	     
 		 return trainService.searchForTrain(email,departureDate, departureTime, fromStation, toStation, noOfConnections, noOfTickets, ticketType, trainType);
 	    }
 

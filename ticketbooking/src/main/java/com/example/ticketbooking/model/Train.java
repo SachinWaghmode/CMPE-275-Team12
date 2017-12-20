@@ -1,20 +1,88 @@
 package com.example.ticketbooking.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Entity
 @Table(name="train")
 public class Train {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long Id;
+	@NotBlank
+	private String trainNumber;
+	@NotBlank
+	private String trainType;
+	@NotBlank
+	private String departureTime;
+	@NotBlank
+	private Date departureDate;
+	@NotBlank
+	private String journeyTime;
+	@NotBlank
+	private String arrivalTime;
+	@NotBlank
+	private String fromStation;
+	@NotBlank
+	private String toStation;
+	@NotBlank
+	private int capacity;
+	
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name="Train_Booking",
+			joinColumns=@JoinColumn(name="Train_ID", referencedColumnName = "Id"),
+			inverseJoinColumns=@JoinColumn(name="Booking_ID", referencedColumnName ="id"))
+	private List<Booking> bookings;
+	
+	
+	public Train(){
+	
+	}
+
+	public String getTrainNumber() {
+		return trainNumber;
+	}
+
+	public void setTrainNumber(String trainNumber) {
+		this.trainNumber = trainNumber;
+	}
+
+	public String getTrainType() {
+		return trainType;
+	}
+
+	public void setTrainType(String trainType) {
+		this.trainType = trainType;
+	}
+
+
+
+
+
+
+
+
+
+
+
 	
 	public Train(Long id, String trainNumber, String trainType, Date departureDate, String journeyTime,
 			String arrivalTime, String fromStation, String toStation, int capacity) {
@@ -86,47 +154,51 @@ public class Train {
 		this.capacity = capacity;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long Id;
-	@NotBlank
-	private String trainNumber;
-	@NotBlank
-	private String trainType;
-	@NotBlank
-	private Date departureDate;
-	@NotBlank
-	private String journeyTime;
-	@NotBlank
-	private String arrivalTime;
-	@NotBlank
-	private String fromStation;
-	@NotBlank
-	private String toStation;
-	@NotBlank
-	private int capacity;
-	
-	public Train(){
-		
+	public String getDepartureTime() {
+		return departureTime;
 	}
 
-	public String getTrainNumber() {
-		return trainNumber;
+	public void setDepartureTime(String departureTime) {
+		this.departureTime = departureTime;
 	}
 
-	public void setTrainNumber(String trainNumber) {
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
+	}
+
+	public Train(Long id, String trainNumber, String trainType, String departureTime, Date departureDate,
+			String journeyTime, String arrivalTime, String fromStation, String toStation, int capacity,
+			List<Booking> bookings) {
+		super();
+		Id = id;
 		this.trainNumber = trainNumber;
-	}
-
-	public String getTrainType() {
-		return trainType;
-	}
-
-	public void setTrainType(String trainType) {
 		this.trainType = trainType;
+		this.departureTime = departureTime;
+		this.departureDate = departureDate;
+		this.journeyTime = journeyTime;
+		this.arrivalTime = arrivalTime;
+		this.fromStation = fromStation;
+		this.toStation = toStation;
+		this.capacity = capacity;
+		this.bookings = bookings;
+	}
+
+	public Train(String trainNumber, String trainType, String departureTime, String arrivalTime,
+			String fromStation, String toStation) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.trainNumber = trainNumber;
+		this.trainType = trainType;
+		this.departureTime = departureTime;
+		this.arrivalTime = arrivalTime;
+		this.fromStation = fromStation;
+		this.toStation = toStation;
 	}
 
 	
 	
-
 }

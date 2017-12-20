@@ -30,14 +30,20 @@ public ResponseEntity<?> searchForTrain(String email,Date departureDate,String d
 		
 		List<Train> trains = new ArrayList<>();
 		List<Train> availableTrains = new ArrayList<>();
+		
 		Map<Integer, List<Train>> tickets = new HashMap<>();
+		
 	    trainRepository.findAll().forEach(trains::add);
-	    int count =0;
+	    
+	    int count =1;
+		Boolean any = false;
 		
-		
-	    for(int i=0; i<trains.size() && tickets.size() <= 5; i++){
-	    	System.out.println("Train ID"+trains.get(i).getId());
-	    	System.out.println("dep Time"+trains.get(i).getArrivalTime());
+	    for(int i=0; i<trains.size() && tickets.size() < 5; i++){
+	    	
+	    	
+	    /*	System.out.println("Train ID"+trains.get(i).getId());
+	    	System.out.println("Arrival Time"+trains.get(i).getDepartureTime());
+	    	System.out.println("Arrival Time"+trains.get(i).getArrivalTime());
 	    	System.out.println("Capacity"+trains.get(i).getCapacity());
 	    	System.out.println("From Station"+trains.get(i).getFromStation());
 	    	System.out.println("To Station"+trains.get(i).getToStation());
@@ -46,6 +52,8 @@ public ResponseEntity<?> searchForTrain(String email,Date departureDate,String d
 	    	System.out.println("dep date"+trains.get(i).getDepartureDate());
 	    	
 	    	System.out.println("Here is type of train : "+trainType+"database value: "+trains.get(i).getTrainType());
+	    */	
+	    	availableTrains = new ArrayList<>();
 	    	
 	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 	    	LocalDate localDate = LocalDate.now();
@@ -54,40 +62,87 @@ public ResponseEntity<?> searchForTrain(String email,Date departureDate,String d
 	    	int atime = Integer.parseInt(departureTime);
 	    	atime = atime+100;
 	    	
-	    	int getTime = Integer.parseInt(trains.get(i).getArrivalTime());
+	    	int getTime = Integer.parseInt(trains.get(i).getDepartureTime());
 	    	
 	        // Check the capacity and departure time greater than 1 hour from now and date 
 	    	if (trains.get(i).getCapacity() >= noOfTickets && (atime <= getTime) || ( localDate.equals(trains.get(i).getDepartureDate())   ) ){
 	    		
 	    			// check train type = Express or Regular 
-	    		//	if (trains.get(i).getTrainType().equals(trainType)){
+	    			if (trains.get(i).getTrainType().equals(trainType) ){
 	    				
 	    				if (noOfConnections == 0){
 	    				
-	    			       tickets.put(count++, checkFromTo(trains.get(i), fromStation, toStation));
+	    					availableTrains = checkFromTo(trains.get(i), fromStation, toStation);
+	    						if (!availableTrains.isEmpty()){
+	    							tickets.put(count++, availableTrains);
+	    							any = true;
+	    						}
 	    				}
 	    				else if (noOfConnections >= 1){
 	    				
 	    				//tickets = checkFromToConnections(trains.get(i), fromStation, toStation);
+	    					System.out.println("Inside Connection 1 database ->"+trains.get(i).getFromStation()+"/ user-> "+fromStation );
 	    				
-	    				if(trains.get(i).getFromStation().compareTo(fromStation) <= 0){
-	    					availableTrains.add(trains.get(i));
+	    					if(trains.get(i).getFromStation().compareTo(fromStation) <= 0){
 	    					
-	    					String tempfromStation = fromStation;
-	    					fromStation = trains.get(i).getToStation();
-	    					String arrives = trains.get(i).getArrivalTime();
+	    						availableTrains.add(trains.get(i));
+	    					     
+	    						String tempfromStation = fromStation;
+	    						fromStation = trains.get(i).getToStation();
+	    						String arrives = trains.get(i).getArrivalTime();
 	    				
-	    				     if ((trains.get(i).getToStation().compareTo(toStation) >= 0)){
-	    				    	
-	    				    	 tickets.put(count++, availableTrains);
+	    						if ((trains.get(i).getToStation().compareTo(toStation) >= 0)){
+	    							if (!availableTrains.isEmpty()){
+	    									tickets.put(count++, availableTrains);
+	    									System.out.println("Adding ticket : "+trains.get(i).getTrainNumber()+ " Count-> "+count );
+	    									any = true;
+	    							}
 	    				    	 fromStation = tempfromStation;
-	    				     }
-	    				     
-	    				   
+	    				     }       
 	    				}
 	    			}
 	    			
-	    	//	}
+	    		}
+	    		else if( trainType.equals("A") || trainType.equals("E")){
+                   if (trainType.equals("A")){
+                	   any = true;
+                   }
+	    			if (trains.get(i).getTrainType().equals("E") || any){
+    				
+    				if (noOfConnections == 0){
+    				
+    					availableTrains = checkFromTo(trains.get(i), fromStation, toStation);
+	    				if (!availableTrains.isEmpty()){
+	    			        tickets.put(count++, availableTrains);
+	    			        any = true;
+	    				}
+    				}
+    				else if (noOfConnections >= 1){
+    				
+    				//tickets = checkFromToConnections(trains.get(i), fromStation, toStation);
+    				
+    					if(trains.get(i).getFromStation().compareTo(fromStation) <= 0){
+    					
+    						availableTrains.add(trains.get(i));
+    					
+    						String tempfromStation = fromStation;
+    						fromStation = trains.get(i).getToStation();
+    						String arrives = trains.get(i).getArrivalTime();
+    				
+    						if ((trains.get(i).getToStation().compareTo(toStation) >= 0)){
+    				    	
+    							if (!availableTrains.isEmpty()){
+									tickets.put(count++, availableTrains);
+									any = true;
+    							}
+    				    	 
+    				    	 fromStation = tempfromStation;
+    				     }       
+    				}
+    			  }
+	    		}
+    		
+	    		}
 	    	}
 	    }
         //Collections.sort(availableTrains);
@@ -103,7 +158,9 @@ public ResponseEntity<?> searchForTrain(String email,Date departureDate,String d
 		Map<Integer, List<Train>> tickets = new HashMap<>();
 	// check direct train with 0 connections
 		if((trains.getFromStation().compareTo(fromStation) <= 0) && (trains.getToStation().compareTo(toStation) >= 0)){
-			       availableTrains.add(trains);
+			
+			Train searched = new Train(trains.getTrainNumber(), trains.getTrainType(), trains.getDepartureTime(), trains.getArrivalTime(), fromStation, toStation);
+			       availableTrains.add(searched);
 			      // tickets.put(count++, availableTrains);
 			}
 		
